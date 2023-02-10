@@ -1,0 +1,25 @@
+[package]
+name = "yq"
+version = "0.2.0"
+edition = "2021"
+description = "Yet another job queue"
+license = "MIT"
+authors = ["Bob <bob22.zhang@gmail.com>"]
+documentation = "https://docs.rs/yq"
+repository = "https://github.com/bob22z/yq"
+keywords = ["job", "queue"]
+
+[dependencies]
+redis = { version = "0.22", features = ["tokio-comp", "connection-manager"] }
+thiserror = "1"
+time = "0.3"
+tokio = { version = "1", features = ["time"] }
+serde = { version = "1" }
+serde_json = "1"
+async-trait = "0.1"
+tracing = "0.1"
+
+[dev-dependencies]
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+serde = { version = "1", features = ["derive"] }
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
