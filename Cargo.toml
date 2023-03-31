@@ -25,6 +25,6 @@ async-trait = "0.1"
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 
-yq = { path = "./yq" }
-yq-async = { path = "yq-async" }
-yq-sync = { path = "yq-sync" }
+yq = { path = "yq", version = "0.3" }
+yq-async = { path = "yq-async", version = "0.3" }
+yq-sync = { path = "yq-sync", version = "0.3" }
