@@ -1,0 +1,17 @@
+[package]
+name = "yq-sync"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+keywords = ["job", "queue", "sync"]
+description = "Yet another job queue - sync"
+documentation = "https://docs.rs/yq-sync"
+
+[dependencies]
+redis.workspace = true
+tracing.workspace = true
+time.workspace = true
+serde_json.workspace = true
+yq.workspace = true

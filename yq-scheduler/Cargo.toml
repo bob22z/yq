@@ -1,0 +1,18 @@
+[package]
+name = "yq-scheduler"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+keywords = ["job", "schedule"]
+description = "Yet another job queue - schedule"
+documentation = "https://docs.rs/yq-schedule"
+
+[dependencies]
+tracing.workspace = true
+tracing-subscriber.workspace = true
+tokio.workspace = true
+redis.workspace = true
+time.workspace = true
+yq.workspace = true

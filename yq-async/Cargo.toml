@@ -1,0 +1,18 @@
+[package]
+name = "yq-async"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+keywords = ["job", "queue", "async"]
+description = "Yet another job queue - async"
+documentation = "https://docs.rs/yq-async"
+
+[dependencies]
+async-trait.workspace = true
+redis.workspace = true
+tracing.workspace = true
+time.workspace = true
+serde_json.workspace = true
+yq.workspace = true
