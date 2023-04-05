@@ -8,14 +8,14 @@ members = [
 ]
 
 [workspace.package]
-version = "0.4.0"
+version = "0.4.1"
 edition = "2021"
 authors = ["Bob <bob22.zhang@gmail.com>"]
 license = "MIT"
 repository = "https://github.com/bob22z/yq"
 
 [workspace.dependencies]
-redis = { version = "0.22", features = ["tokio-comp", "connection-manager"] }
+redis = { version = "0.23", features = ["tokio-comp", "connection-manager"] }
 thiserror = "1"
 time = "0.3"
 tokio = { version = "1", features = ["time", "macros", "rt-multi-thread"] }
