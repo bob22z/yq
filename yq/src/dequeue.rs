@@ -2,6 +2,7 @@ use crate::helper::{read_redis_value_as_int, read_redis_value_as_str};
 use crate::Queue;
 use redis::{FromRedisValue, RedisResult, Script, ScriptInvocation};
 
+#[derive(Clone)]
 pub struct DequeueAction {
     script: Script,
     queue: Queue,
@@ -33,6 +34,7 @@ impl DequeueAction {
     }
 }
 
+#[derive(Clone)]
 pub struct FinishAction {
     queue: Queue,
 }
@@ -47,6 +49,7 @@ impl FinishAction {
     }
 }
 
+#[derive(Clone)]
 pub struct SleepOnAction {
     queue: Queue,
 }

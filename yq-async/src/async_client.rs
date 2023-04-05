@@ -3,6 +3,7 @@ use yq::{
     EnqueueAction, EnqueueAtAction, EnqueueAtStatus, EnqueueStatus, Job, Queue, YqError, YqResult,
 };
 
+#[derive(Clone)]
 pub struct AsyncClient {
     connection_manager: ConnectionManager,
     enqueue_action: EnqueueAction,
@@ -24,11 +25,12 @@ impl AsyncClient {
         })
     }
 
-    pub async fn schedule<J: Job>(&mut self, job: &J) -> YqResult<i64> {
+    pub async fn schedule<J: Job>(&self, job: &J) -> YqResult<i64> {
+        let mut redis_conn = self.connection_manager.clone();
         let enqueue_status: EnqueueStatus = self
             .enqueue_action
             .prepare_invoke(job)?
-            .invoke_async(&mut self.connection_manager)
+            .invoke_async(&mut redis_conn)
             .await
             .map_err(YqError::Enqueue)?;
 
@@ -42,11 +44,12 @@ impl AsyncClient {
         }
     }
 
-    pub async fn schedule_at<J: Job>(&mut self, job: &J, run_at: i64) -> YqResult<i64> {
+    pub async fn schedule_at<J: Job>(&self, job: &J, run_at: i64) -> YqResult<i64> {
+        let mut redis_conn = self.connection_manager.clone();
         let enqueue_at_status: EnqueueAtStatus = self
             .enqueue_at_action
             .prepare_invoke(job, run_at)?
-            .invoke_async(&mut self.connection_manager)
+            .invoke_async(&mut redis_conn)
             .await
             .map_err(YqError::EnqueueAt)?;
 

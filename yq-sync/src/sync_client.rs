@@ -3,6 +3,7 @@ use yq::{
     EnqueueAction, EnqueueAtAction, EnqueueAtStatus, EnqueueStatus, Job, Queue, YqError, YqResult,
 };
 
+#[derive(Clone)]
 pub struct SyncClient {
     client: Client,
     enqueue_action: EnqueueAction,
@@ -20,11 +21,15 @@ impl SyncClient {
         })
     }
 
-    pub fn schedule<J: Job>(&mut self, job: &J) -> YqResult<i64> {
+    pub fn schedule<J: Job>(&self, job: &J) -> YqResult<i64> {
+        let mut redis_conn = self
+            .client
+            .get_connection()
+            .map_err(YqError::GetRedisConn)?;
         let enqueue_status: EnqueueStatus = self
             .enqueue_action
             .prepare_invoke(job)?
-            .invoke(&mut self.client)
+            .invoke(&mut redis_conn)
             .map_err(YqError::Enqueue)?;
 
         match enqueue_status {
@@ -37,11 +42,16 @@ impl SyncClient {
         }
     }
 
-    pub fn schedule_at<J: Job>(&mut self, job: &J, run_at: i64) -> YqResult<i64> {
+    pub fn schedule_at<J: Job>(&self, job: &J, run_at: i64) -> YqResult<i64> {
+        let mut redis_conn = self
+            .client
+            .get_connection()
+            .map_err(YqError::GetRedisConn)?;
+
         let enqueue_at_status: EnqueueAtStatus = self
             .enqueue_at_action
             .prepare_invoke(job, run_at)?
-            .invoke(&mut self.client)
+            .invoke(&mut redis_conn)
             .map_err(YqError::EnqueueAt)?;
 
         match enqueue_at_status {

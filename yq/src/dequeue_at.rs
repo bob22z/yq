@@ -2,6 +2,7 @@ use crate::helper::{read_redis_value_as_int, read_redis_value_as_str};
 use crate::Queue;
 use redis::{FromRedisValue, RedisResult, Script, ScriptInvocation};
 
+#[derive(Clone)]
 pub struct DequeueAtAction {
     script: Script,
     queue: Queue,

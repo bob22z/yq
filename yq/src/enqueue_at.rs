@@ -2,6 +2,7 @@ use crate::helper::{encode_job, read_redis_value_as_int, read_redis_value_as_str
 use crate::{Job, Queue, YqResult};
 use redis::{FromRedisValue, RedisResult, Script, ScriptInvocation};
 
+#[derive(Clone)]
 pub struct EnqueueAtAction {
     script: Script,
     queue: Queue,
